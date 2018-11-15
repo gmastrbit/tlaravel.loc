@@ -26,6 +26,9 @@ class RouteServiceProvider extends ServiceProvider
     {
         //
 
+        // глобальні умови для параметрів всіх наступних роутерів
+        $router->pattern('id', '[0-9]+'); // глобальні параметри для всіх роутерів (одна умова)
+        $router->patterns(['id' => '[0-9]+', 'cat' => '[A-Za-z]+']); // глобальні параметри для всіх роутерів (багато умова)
         parent::boot($router);
     }
 
