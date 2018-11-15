@@ -11,77 +11,32 @@
 |
 */
 
-// закоментовано для створення посилання на головну сторінку
-// Route::get('/', function () {
+//Route::get('/', function () {
 //    return view('welcome');
-// });
+//});
 
-// створення посилання на головну сторінку
+// іменування маршрута
 Route::get('/', ['as' => 'home', function () {
     return view('welcome');
 }]);
 
-Route::get('/article/{id}', ['as' => 'article', function ($id) {
-    // return view('welcome');
-    echo $id;
-}]);
+// Route::get('/about', 'FirstController@show'); // вказуємо контролер для обробки запиту методом get
+// після @ вказується метод для відображення
 
-// Route:: - фасад
-// get - метод, який відповідає HTTP запиту, для якого ми формуємо наш майбутній маршрут (get, post, put, delete, patch, options)
+Route::get('/about/{id?}', 'FirstController@show'); // передача параметрів
 
-// Route::get('/page', function () {
-// Route::get('/page/{id}/{cat}', function ($id, $cat) {
-// Route::get('/page/{id?}', function ($id = null) {       // якщо параметр не обов'язковий, то треба вказати параметр по замовчуванню
-// Route::get('/page/{id}', function ($id ) {       // формування умови для 1 параметра
-Route::get('/page/{cat}/{id}', function ($id) {       // формування умови для 2 параметрів
-    //return view('page');
+// іменування маршрута
+Route::get('articles/', ['uses' => 'Admin\Core@getArticles', 'as' => 'articles']);
+Route::get('article/{id}', ['uses' => 'Admin\Core@getArticle', 'as' => 'article']);
 
-    //echo "Hello";
-    //var_dump($_ENV);
-    //var_dump(config('app'));
-    //var_dump(Config::get('app'));
+// RESTful
+// list pages
+//Route::resource('/pages', 'Admin\CoreResource'); // для всіх методів
+// Route::resource('/pages', 'Admin\CoreResource', ['only' => ['index', 'show']]); // only - створити лише деякі методи
+// except - вказати методи, які будуть виключені з ResourceController
 
-    echo $id;
-//});
-// перевірка на задоволення умови
-//})->where('id', '[0-9]+'); // перевірка на число (якщо одна перевірка)
+// формування власного маршруту
+// Roure::get('pages/add', 'Admin\CoreResource@add');
 
-// id має бути числом, cat має бути лише рядком
-//})->where(['id' => '[0-9]+', 'cat' => '[A-Za-z]+']); // перевірки (якщо багато параметрів, які треба перевіряти)
-});
-
-// маршрут для методу POST
-Route::post('/comments', function () {
-    var_dump($_POST);
-});
-
-// match дозволяє оборобити різні типи запитів
-//Route::match(['get', 'post'], '/comments', function () {
-//    var_dump($_POST);
-//});
-
-// створення маршруту для всіх типів запитів
-//Route::any('/comments', function () {
-//    var_dump($_POST);
-//});
-
-// групування маршрутів
-// для того, щоб через admin/page/create отримати page/create
-Route::group(['prefix' => 'admin'], function (){
-
-    Route::get('page/create', function (){
-//        echo 'page/create <br><br>';
-        // відображення посилання на головну сторінку
-//        echo route('home'); // вивести посилання на певний роут (на головну сторінку)
-//        return redirect()->route('home'); // редірект на головну сторінку
-//        return redirect()->route('article', array('id' => 25)); // редірект на головну сторінку
-        $route = Route::current();
-        echo $route->getName();
-
-    })->name('createpage'); // ще один спосіб визначення імені для маршрута
-
-    Route::get('page/edit', function (){
-        echo 'page/edit';
-    });
-
-});
+// формування одного контролера для маршрутів
+Route::controller('/pages', 'PagesController');
