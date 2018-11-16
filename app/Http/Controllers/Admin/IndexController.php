@@ -31,7 +31,7 @@ class IndexController extends Controller
 
         // останній спосіб передачі даних у шаблон
 
-        if (view()->exists('default.template')) {
+        if (view()->exists('default.index')) {
 
             // перейменовування шаблона
             // view()->name('default.template', 'myview');
@@ -42,7 +42,7 @@ class IndexController extends Controller
             //$path = config('view.paths');
             //return view()->file($path[0].'/default/template.php')->withTitle('Hello World');
 
-            // return view('default.template')->withTitle('Hello World');
+             return view('default.index')->withTitle('Hello World');
 
         }
 
