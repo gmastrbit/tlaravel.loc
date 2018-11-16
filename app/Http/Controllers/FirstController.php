@@ -12,11 +12,6 @@ use App\Http\Controllers\Controller; // надаємо доступ до дан�
 
 class FirstController extends Controller
 {
-
-//    public function show() {
-//        echo __METHOD__;
-//    }
-
     // передача параметрів
     public function show($id = null) {
         echo __METHOD__;

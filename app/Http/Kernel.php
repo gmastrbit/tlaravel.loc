@@ -17,6 +17,7 @@ class Kernel extends HttpKernel
     // посередники, які виконуються для будь-якого запиту
     protected $middleware = [
         \Illuminate\Foundation\Http\Middleware\CheckForMaintenanceMode::class,
+        \Illuminate\Session\Middleware\StartSession::class,
         // \App\Http\Middleware\Mymiddleware::class, // буде віпрацьовувати для будь-якого запиту користувача
     ];
 
