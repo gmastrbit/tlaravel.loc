@@ -13,8 +13,11 @@ class Kernel extends HttpKernel
      *
      * @var array
      */
+
+    // посередники, які виконуються для будь-якого запиту
     protected $middleware = [
         \Illuminate\Foundation\Http\Middleware\CheckForMaintenanceMode::class,
+        // \App\Http\Middleware\Mymiddleware::class, // буде віпрацьовувати для будь-якого запиту користувача
     ];
 
     /**
@@ -43,11 +46,14 @@ class Kernel extends HttpKernel
      *
      * @var array
      */
+
+    // масив з посередниками, які ми можемо використовувати в маршрутах
     protected $routeMiddleware = [
         'auth' => \App\Http\Middleware\Authenticate::class,
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
         'can' => \Illuminate\Foundation\Http\Middleware\Authorize::class,
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
+        'mymiddle' => \App\Http\Middleware\Mymiddleware::class,                     // доданий мною посередник
     ];
 }

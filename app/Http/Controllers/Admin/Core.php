@@ -11,6 +11,12 @@ class Core extends Controller
 {
     //
 
+    // у конструкторі можна визначити список посередників
+    public function __construct()
+    {
+        // $this->middleware('mymiddle');
+    }
+
     // return list materials
     public function getArticles() {
 
@@ -18,6 +24,6 @@ class Core extends Controller
 
     // return material
     public function getArticle($id) {
-
+        echo 'Hello';
     }
 }
