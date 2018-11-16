@@ -16,9 +16,9 @@
 //});
 
 // іменування маршрута
-Route::get('/', ['as' => 'home', function () {
-    return view('welcome');
-}]);
+//Route::get('/', ['as' => 'home', function () {
+//    return view('welcome');
+//}]);
 
 // вказання конкретного посередника
 //Route::get('/', ['as' => 'home', 'middleware' => 'mymiddle', function () {
@@ -29,10 +29,14 @@ Route::get('/', ['as' => 'home', function () {
 // явно вказали назву посередника у параметрах
 // Route::get('/', ['as' => 'home', 'middleware' => 'auth', 'uses' => 'Admin\IndexController@show']); // перенаправить на сторінку login
 
+ Route::get('/', ['as' => 'home', 'uses' => 'Admin\IndexController@show']);
+
 // Route::get('/about', 'FirstController@show'); // вказуємо контролер для обробки запиту методом get
 // після @ вказується метод для відображення
 
-Route::get('/about/{id?}', 'FirstController@show'); // передача параметрів
+//Route::get('/about/{id?}', 'FirstController@show'); // передача параметрів
+
+Route::get('/about',['uses' => 'Admin\AboutController@show', 'as' => 'about']); // передача параметрів
 
 // іменування маршрута
 Route::get('articles/', ['uses' => 'Admin\Core@getArticles', 'as' => 'articles']);
@@ -50,7 +54,7 @@ Route::get('articles/', ['uses' => 'Admin\Core@getArticles', 'as' => 'articles']
 //Route::get('article/{page}', ['uses' => 'Admin\Core@getArticle', 'as' => 'article']);
 
 // передача параметрів в клас посередника
-Route::get('article/{page}', ['middleware' => 'mymiddle:home','uses' => 'Admin\Core@getArticle', 'as' => 'article']);
+Route::get('article/{id}', ['middleware' => 'mymiddle:home','uses' => 'Admin\Core@getArticle', 'as' => 'article']);
 
 // RESTful
 // list pages
