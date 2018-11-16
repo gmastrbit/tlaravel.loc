@@ -13,40 +13,23 @@ class IndexController extends Controller
 
     public function show()
     {
-
-//        $data = ['title' => 'Hello World'];
-//        return view('default.template', $data); // передача параметрів у вид
-
-        // передача параметра за допомогою with
-
-//        return view('default.template')->with('title', 'Hello World');
-
-        // передача параметрыв за допомогою with
-
-//        $view = view('default.template');
-//        $view->with('title', 'Hello World');
-//        $view->with('title2', 'Hello World 2');
-//
-//        return $view;
-
-        // останній спосіб передачі даних у шаблон
+        $array = [
+            'title' => 'Laravel Project',
+            'data' => [
+                'one' => 'List 1',
+                'two' => 'List 2',
+                'three' => 'List 3',
+                'four' => 'List 4',
+                'five' => 'List 5'
+            ],
+            'dataI' => ['List1', 'List2', 'List3', 'List4', 'List5'],
+            'bvar' => true,
+            'script' => '<script>alert("Hello!");</script>'
+        ];
 
         if (view()->exists('default.index')) {
-
-            // перейменовування шаблона
-            // view()->name('default.template', 'myview');
-
-            // доступ до вида по його імені
-            //return view()->of('myview')->withTitle('Hello World');
-
-            //$path = config('view.paths');
-            //return view()->file($path[0].'/default/template.php')->withTitle('Hello World');
-
-             return view('default.index')->withTitle('Hello World');
-
+             return view('default.index', $array);
         }
-
         abort(404);
-
     }
 }

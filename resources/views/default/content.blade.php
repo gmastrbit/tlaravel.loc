@@ -1,3 +1,38 @@
+@if(count($data) < 3)
+    В масиві менше 3 елементів
+@elseif (count($data) > 10)
+    В масиві більше 10 елементів
+@else
+    В масиві багато елементів
+@endif
+
+<ul>
+@for($i = 0; $i < count($dataI); $i++)
+    <li>{{ $dataI[$i]}}</li>
+@endfor
+</ul>
+
+<ul>
+@foreach($data as $k => $value)
+    <li>{{ $k.' => '.$value }}</li>
+@endforeach
+</ul>
+
+<ul>
+@forelse($data as $k => $value)
+    <li>{{ $k.' => '.$value }}</li>
+    @empty
+        <p>No items</p>
+@endforelse
+</ul>
+
+@while (FALSE)
+    <p>I'm looping forever</p>
+@endwhile
+
+@each('default.list', $dataI, 'value')
+
+
 <div class="col-md-4">
     <h2>Heading</h2>
     <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
