@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
+use DB;
+
 // Надаємо доступ до класу Response
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Redirect;
@@ -26,6 +28,32 @@ class AboutController extends Controller
 
             // можна повернути JSON рядок
             //return response()->json(['name' => 'hello', 'name1' => 'hello1']);
+
+            // вибрати записи з БД
+            // неіменовані мітки
+            // $articles = DB::select('SELECT * FROM `articles` WHERE id = ?', [2]);
+
+            // іменовані мітки
+            // $articles = DB::select('SELECT * FROM `articles` WHERE id = :id', ['id' => 2]);
+
+            DB::insert('INSERT INTO `articles` (`name`, `text`) VALUES (?, ?)', ['test 1', 'TEXT']);
+            $result = DB::connection()->getPdo()->lastInsertId();
+
+            // $result = DB::update('UPDATE `articles` SET `name` = ? WHERE `id` = ?', ['TEST 2', 6]);
+
+            // $result = DB::delete('DELETE FROM `articles` WHERE `id` = ?', [6]);
+
+            // statement для інших загальних запитів
+            // DB::statement('DROP TABLE `articles`');
+
+            $articles = DB::select('SELECT * FROM `articles`');
+
+            dump($result);
+            dump($articles);
+
+//            foreach ($articles as $article) {
+//
+//            }
 
             return view('default.about')->withTitle('Hello World');
 
