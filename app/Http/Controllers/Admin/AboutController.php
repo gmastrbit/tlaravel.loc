@@ -36,8 +36,8 @@ class AboutController extends Controller
             // іменовані мітки
             // $articles = DB::select('SELECT * FROM `articles` WHERE id = :id', ['id' => 2]);
 
-            DB::insert('INSERT INTO `articles` (`name`, `text`) VALUES (?, ?)', ['test 1', 'TEXT']);
-            $result = DB::connection()->getPdo()->lastInsertId();
+            // DB::insert('INSERT INTO `articles` (`name`, `text`) VALUES (?, ?)', ['test 1', 'TEXT']);
+            // $result = DB::connection()->getPdo()->lastInsertId();
 
             // $result = DB::update('UPDATE `articles` SET `name` = ? WHERE `id` = ?', ['TEST 2', 6]);
 
@@ -46,16 +46,10 @@ class AboutController extends Controller
             // statement для інших загальних запитів
             // DB::statement('DROP TABLE `articles`');
 
-            $articles = DB::select('SELECT * FROM `articles`');
+            // $articles = DB::select('SELECT * FROM `articles`');
 
-            dump($result);
-            dump($articles);
-
-//            foreach ($articles as $article) {
-//
-//            }
-
-            return view('default.about')->withTitle('Hello World');
+            // dump($result);
+            // dump($articles);
 
             // віддати файл на скачування
             //return response()->download('robots.txt', 'mytext.txt');
@@ -63,6 +57,10 @@ class AboutController extends Controller
             // перенаправлення
             // return redirect('/');
             //return new RedirectResponse('/articles');
+
+            $page = DB::select("SELECT `name`, `text` FROM `pages` WHERE `alias` = :alias", ['alias' => 'about']);
+
+            return view('default.about')->withPage($page[0])->withTitle('About our company');
         }
         abort(404);
     }

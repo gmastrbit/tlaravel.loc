@@ -25,7 +25,7 @@ class AppServiceProvider extends ServiceProvider
         // коли буде виконуватися будь-який SQL запит, буде виконуватися цей метод
         DB::listen(function ($query) {
             dump($query->sql);
-            dump($query->bindings);
+            //dump($query->bindings);
         });
     }
 
