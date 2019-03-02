@@ -175,12 +175,77 @@ class Core extends Controller
 
 //        $articles = Article::all();
 
-        $article = Article::find(19);
-        $article->name = 'New Name 2';
+//        $article = Article::find(19);
+//        $article->name = 'New Name 2';
+//        $article->save();
 
-        $article->save();
+        // додавання даних
 
-        dump($article->name);
+//        Article::create([
+//            'name' => 'hello world',
+//            'text' => 'some text'
+//        ]);
+
+        // додавати лише унікальну інформацію по визначеному полю
+        // перевіряє, чи в БД є запис з таким значенням, яке записано в полі
+//        $article = Article::firstOrCreate([
+//            'name' => 'hello world',
+//            'text' => 'some text'
+//        ]);
+
+        // від перевірить, чи є запис з певною умовою
+        // якщо запис є, то повертає об'єкт для даного запису
+        // якщо запису немає, то повертає об'єкт моделі для даних параметрів, але вставка в БД не реалізується
+//        $article = Article::firstOrNew([
+//            'name' => 'hello world',
+//            'text' => 'some text'
+//        ]);
+//
+//        $article->save();
+//
+//        $articles = Article::all();
+
+        // видалення даних, використовуючи модель
+
+//        $article = Article::find(3);
+
+        // видаляє запис, яка відповідає данній моделі
+//        $article->delete();
+
+        // Article::destroy(2);
+//        Article::where('id', '>', '10')->delete();
+
+        // softDelete
+//        $article = Article::find(5);
+//        $article->delete();
+
+        // вивести навіть видалені записи
+//        $articles = Article::withTrashed()->get();
+
+//        foreach ($articles as $article) {
+//            if ($article->trashed()){
+//                echo $article->id.' is deleted <br>';
+//
+//                // витягнути запис з корзини, відновити
+//                $article->restore();
+//            } else {
+//                echo $article->id.' not deleted <br>';
+//            }
+//        }
+
+        // зразу відновити видалені записи
+//        $articles = Article::withTrashed()->restore();
+
+        // лише видалені записи вивести
+//        $articles = Article::onlyTrashed()->get();
+
+        // видалити запис, який був видалений softDelete
+        $article = Article::find(3);
+        // фізичне видалення
+        $article->forceDelete();
+
+        dump($article);
+        //dump($article);
 
         return;
     }
