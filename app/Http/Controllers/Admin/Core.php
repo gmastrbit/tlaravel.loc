@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Article;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -24,7 +25,7 @@ class Core extends Controller
     }
 
     // return list materials
-    public function getArticles() {
+    public function getArticles(Request $request) {
 
         // виведення всіх записів із таблиці get()
         // $articles = DB::table('articles')->get();
@@ -134,9 +135,54 @@ class Core extends Controller
 
         // DB::table('articles')->increment('name', 5);
 
-        $articles = DB::table('articles')->get();
-        dump($articles);
+//        $articles = DB::table('articles')->get();
+//        dump($articles);
 //        dump(self::$articles);
+
+        // all() поверне колекцію моделей
+//        $articles = Article::all();
+//
+//        foreach ($articles as $article){
+//            echo $article->name.'<br>';
+//        }
+
+        // використання QueryBuilder
+
+        // $articles = Article::where('id', '>', 3)->orderBy('name')->take(2)->get();
+
+//        Article::chunk(2, function ($articles){
+//
+//        });
+
+        // find() шукає таблицю по id
+
+        // $article = Article::find(2);
+        // $article = Article::where('id', 2)->first();
+        // echo $article->text;
+
+        // $article = Article::find([1, 2, 3]);
+
+        // генерація виключення в разі відсутності результату
+        // $article = Article::findOrFail(2);
+        // $article = Article::where('id', 2)->firstOrFail(2);
+
+        // збереження інформації
+
+//        $article = new Article;
+//        $article->name = 'New Article';
+//        $article->text = 'New Text';
+//        $article->save();
+
+//        $articles = Article::all();
+
+        $article = Article::find(19);
+        $article->name = 'New Name 2';
+
+        $article->save();
+
+        dump($article->name);
+
+        return;
     }
 
     // return material
