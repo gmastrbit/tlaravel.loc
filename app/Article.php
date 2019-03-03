@@ -30,4 +30,10 @@ class Article extends Model
 
     protected $dates = ['deleted_at'];
 
+    // визначення зв'язку один до багатьох (тут багато записів)
+    public function user()
+    {
+        return $this->belongsTo('App\User');
+    }
+
 }

@@ -3,12 +3,15 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Article;
+use App\Country;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use DB;
+use App\User;
+use App\Role;
 
 class Core extends Controller
 {
@@ -240,12 +243,41 @@ class Core extends Controller
 //        $articles = Article::onlyTrashed()->get();
 
         // видалити запис, який був видалений softDelete
-        $article = Article::find(3);
+//        $article = Article::find(3);
         // фізичне видалення
-        $article->forceDelete();
+//        $article->forceDelete();
 
-        dump($article);
+//        dump($article);
         //dump($article);
+
+//        $user = User::find(1);
+
+//        $country = Country::find(1);
+
+//        $country = $user->country;
+
+//        $articles = $user->articles()->where('id', '>', 3)->get();
+
+//        $article = Article::find(1);
+
+        // вивести всі записи користувача
+//        foreach ($articles as $article){
+//            echo $article->name.'<br>';
+//        }
+
+//        $user = User::find(1);
+
+        // якщо звертаєо до методу, то маємо доступ до QueryBuilder
+//        $role = $user->roles()->where('roles.id', 2)->first();
+//        dump($role);
+//        foreach ($user->roles as $role){
+//            echo $role->name.'<br>';
+//        }
+//        dump($user->roles);
+
+        $role = Role::find(1);
+
+        dump($role->users);
 
         return;
     }
