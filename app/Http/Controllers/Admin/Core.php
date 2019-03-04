@@ -275,9 +275,69 @@ class Core extends Controller
 //        }
 //        dump($user->roles);
 
-        $role = Role::find(1);
+//        $role = Role::find(1);
+//
+//        dump($role->users);
 
-        dump($role->users);
+//        $articles = Article::all();
+
+        // жадне завантаження
+        // with() для завантаження даних зв'язаних таблиць
+//        $articles = Article::with('user')->get();
+
+        // жадне завантаження через load()
+//        $articles = Article::all();
+//        $articles->load('user');
+
+//        $users =  User::with('articles', 'roles')->get();
+
+        // вибрати користувачів, які мають зв'язані записи у таблиці articles
+//        $users =  User::has('articles', '>=', '3')->get();
+
+//        foreach ($users as $user) {
+//            dump($user);
+//        }
+
+//        $user = User::find(1);
+
+//        $article = new Article([
+//            'name' => 'New Article',
+//            'text' => 'Some text'
+//        ]);
+
+//        $user->articles()->save($article);
+
+//        $user->articles()->create([
+//            'name' => 'New Article',
+//            'text' => 'Some text'
+//        ]);
+
+        // для збереження декількох записів (масив моделей, інформація про які повинна записати БД
+//        $user->articles()->saveMany([
+//            new Article(['name' => 'New Article1', 'text' => 'Some text1']),
+//            new Article(['name' => 'New Article2', 'text' => 'Some text2']),
+//            new Article(['name' => 'New Article3', 'text' => 'Some text3'])
+//        ]);
+
+//        $role = new Role([
+//            'name' => 'guest'
+//        ]);
+//
+//        $user->roles()->save($role);
+//
+//        $articles = Article::all();
+//
+//        dump($articles);
+
+        // редагування даних
+        $user = User::find(2);
+
+        $user->articles()->where('id', '=', 2)->update([
+            'name' => 'NEW TEXT'
+        ]);
+
+        $articles = Article::find(2);
+        dump($articles);
 
         return;
     }
