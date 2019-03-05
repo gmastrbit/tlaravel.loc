@@ -30,10 +30,28 @@ class Article extends Model
 
     protected $dates = ['deleted_at'];
 
+    // тип даних для кожного поля моделі
+    protected $casts = [
+        'name' => 'string',
+        'text' => 'array'
+    ];
+
     // визначення зв'язку один до багатьох (тут багато записів)
     public function user()
     {
         return $this->belongsTo('App\User');
+    }
+    
+    // метод читач
+    public function getNameAttribute($value)
+    {
+        return 'hello world - '.$value.' - test';
+    }
+    
+    // метод перетворювач
+    public function setNameAttribute($value)
+    {
+        $this->attributes['name'] = ' | '.$value.' | ';
     }
 
 }

@@ -330,14 +330,61 @@ class Core extends Controller
 //        dump($articles);
 
         // редагування даних
-        $user = User::find(2);
+//        $user = User::find(2);
+//
+//        $user->articles()->where('id', '=', 2)->update([
+//            'name' => 'NEW TEXT'
+//        ]);
+//
+//        $articles = Article::find(2);
+//        dump($articles);
 
-        $user->articles()->where('id', '=', 2)->update([
-            'name' => 'NEW TEXT'
-        ]);
+        // один до одного приклад
 
-        $articles = Article::find(2);
-        dump($articles);
+//        $country = Country::find(1);
+//
+//        $user = User::find(2);
+//
+//        // змінюємо стан моделі Country
+//        $country->user()->associate($user);
+//
+//        // зберігаємо зміни
+//        $country->save();
+
+        // один до багатьох приклад
+//        $articles = Article::all();
+//
+//        $user = User::find(2);
+//
+//        foreach ($articles as $article){
+//            $article->user()->associate($user);
+//            $article->save();
+//        }
+
+        // багато до багатьох приклад
+
+//        $user = User::find(2);
+//
+//        $role_id = Role::find(2);
+//
+////        $user->roles()->attach($role_id);
+//        $user->roles()->detach($role_id);
+
+//        $article = Article::find(11);
+//        $article->name = 'Some text';
+//        echo $article->name;
+//        dump($article);
+
+        $article = Article::find(11);
+
+//        $array = ['key' => 'hello world'];
+
+        // зміна властивостей поля
+//        $article->text = $array;
+//        $article->save();
+
+        dump($article->toArray());
+        dump($article->toJson());
 
         return;
     }
