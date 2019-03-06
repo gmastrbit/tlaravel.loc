@@ -11,6 +11,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use App\Http\Requests\ContactRequest;
 use App\Http\Controllers\Controller;
 
 use Validator;
@@ -25,7 +26,7 @@ class ContactController extends Controller
 //    }
     
     // впровадження залежностей
-    public function show(Request $request, $id = FALSE)
+    public function store(ContactRequest $request, $id = FALSE)
     {
         // all() - для всіх
         // only() - для деяких
@@ -50,28 +51,50 @@ class ContactController extends Controller
 //            return redirect()->route('contact');
 //        }
 
-        if ($request->isMethod('post')){
+        // Валідація
 
-            // формування масиву правил
-            $rules = [
-                'name' => 'required|max:10|alpha',
-                'email' => 'required|email'
-            ];
+//        if ($request->isMethod('post')){
+//
+//            // формування масиву правил
+//            $rules = [
+//                'name' => 'required|max:10|alpha',
+//                'email' => 'required|email'
+//            ];
+//
+////            $this->validate($request, $rules);
+//
+//            $validator = Validator::make($request->all(), $rules);
+//
+//            if($validator->fails()) {
+//
+//                // зберігання результату
+//                $request->flash();
+//
+//                return view('default.contact', ['title' => 'Contacts'])->withErrors($validator)->withInput($request->all());
+//            }
+//
+//        }
 
-//            $this->validate($request, $rules);
+        // ручна побудова валідатора:
 
-            $validator = Validator::make($request->all(), $rules);
-
-            if($validator->fails()) {
-
-                // зберігання результату
-                $request->flash();
-
-                return view('default.contact', ['title' => 'Contacts'])->withErrors($validator)->withInput($request->all());
-            }
-
+        if ($request->isMethod('post')) {
+//            $messages = [];
+//
+//            $validator = Validator::make($request->all(), [
+//                'name' => 'required'
+//            ], $messages);
+//
+//            if ($validator->fails()) {
+////                return redirect()->route('contact')->withErrors($validator)->withInput();
+//                $request->flash();
+//                return view('default.contact', ['title' => 'Contacts'])->withErrors($validator)->withInput($request->all());
+//            }
         }
+        
+        return view('default.contact', ['title' => 'Contacts']);
+    }
 
+    public function show() {
         return view('default.contact', ['title' => 'Contacts']);
     }
 }
