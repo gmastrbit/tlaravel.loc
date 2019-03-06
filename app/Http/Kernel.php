@@ -18,6 +18,7 @@ class Kernel extends HttpKernel
     protected $middleware = [
         \Illuminate\Foundation\Http\Middleware\CheckForMaintenanceMode::class,
         \Illuminate\Session\Middleware\StartSession::class,
+        \Illuminate\View\Middleware\ShareErrorsFromSession::class,
         // \App\Http\Middleware\Mymiddleware::class, // буде віпрацьовувати для будь-якого запиту користувача
     ];
 

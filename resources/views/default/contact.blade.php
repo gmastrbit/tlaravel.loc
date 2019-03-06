@@ -3,11 +3,21 @@
 @section('content')
 <div class="col-md-8">
 <div class="class">
-    {{ var_dump(Session::all()) }}
     <h2>Contact us!</h2>
 </div>
 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus aliquid doloremque ducimus, ea fugit laboriosam laudantium natus nisi obcaecati omnis quidem ratione repellendus sequi sint voluptatum! Dicta neque non quae!</p>
-<form action="{{ route('contact') }}" method="post">
+
+    @if (count($errors) > 0)
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
+<form method="post" action="{{ route('contact') }}" >
     <div class="form-group">
         <label for="name">Name</label>
         <input type="text" class="form-control" id="name" name="name" value="{{ old('name') }}" placeholder="Jack">

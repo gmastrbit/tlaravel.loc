@@ -19,4 +19,4 @@ Route::get('/articles', ['as' => 'articles', 'uses' => 'Admin\Core@getArticles']
 
 Route::get('/article/{id}', ['as' => 'article', 'uses' => 'Admin\Core@getArticle']);
 
-Route::match(['get', 'post'], '/contact/{id?}', ['as' => 'contact', 'uses' => 'Admin\ContactController@show']);
+Route::match(['get', 'post'], '/contact/{name?}', ['as' => 'contact', 'uses' => 'Admin\ContactController@show']);

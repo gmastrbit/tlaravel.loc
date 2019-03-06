@@ -13,6 +13,8 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
+use Validator;
+
 class ContactController extends Controller
 {
 //    protected $request;
@@ -23,7 +25,7 @@ class ContactController extends Controller
 //    }
     
     // впровадження залежностей
-    public function show(Request $request, $id = false)
+    public function show(Request $request, $id = FALSE)
     {
         // all() - для всіх
         // only() - для деяких
@@ -42,10 +44,32 @@ class ContactController extends Controller
 //            var_dump($request->url());
 //        }
 
+//        if ($request->isMethod('post')){
+//            //var_dump($request->url());
+//            $request->flash();
+//            return redirect()->route('contact');
+//        }
+
         if ($request->isMethod('post')){
-            //var_dump($request->url());
-            $request->flash();
-            return redirect()->route('contact');
+
+            // формування масиву правил
+            $rules = [
+                'name' => 'required|max:10|alpha',
+                'email' => 'required|email'
+            ];
+
+//            $this->validate($request, $rules);
+
+            $validator = Validator::make($request->all(), $rules);
+
+            if($validator->fails()) {
+
+                // зберігання результату
+                $request->flash();
+
+                return view('default.contact', ['title' => 'Contacts'])->withErrors($validator)->withInput($request->all());
+            }
+
         }
 
         return view('default.contact', ['title' => 'Contacts']);
