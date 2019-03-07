@@ -25,14 +25,17 @@ class ContactRequest extends Request
     public function rules()
     {
         return [
-            'name' => 'required'
+            'name' => 'required',
+            'email' => 'max:5|required'
         ];
     }
 
     public function messages()
     {
         return [
-
+            // лише для поля name, якщо є правило required
+            'name.required' => 'ПОЛЕ :attribute обов\'язкове для заповнення',
+            'email.max' => 'Максимально допустима кількість символів :max',
         ];
     }
 }

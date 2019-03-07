@@ -92,8 +92,12 @@ return [
     */
 
     'custom' => [
-        'attribute-name' => [
-            'rule-name' => 'custom-message',
+        'name' => [
+            'required' => 'Поле name обов\'язкове для заповнення',
+        ],
+        'email' => [
+            'max' => 'Максимально допустима кількість символів :max',
+            'required' => 'Пошта обов\'язкова'
         ],
     ],
 

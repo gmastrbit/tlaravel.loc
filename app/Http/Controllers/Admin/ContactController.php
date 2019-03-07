@@ -26,7 +26,7 @@ class ContactController extends Controller
 //    }
     
     // впровадження залежностей
-    public function store(ContactRequest $request, $id = FALSE)
+    public function store(Request $request, $id = FALSE)
     {
         // all() - для всіх
         // only() - для деяких
@@ -78,17 +78,52 @@ class ContactController extends Controller
         // ручна побудова валідатора:
 
         if ($request->isMethod('post')) {
-//            $messages = [];
-//
-//            $validator = Validator::make($request->all(), [
-//                'name' => 'required'
-//            ], $messages);
-//
-//            if ($validator->fails()) {
-////                return redirect()->route('contact')->withErrors($validator)->withInput();
+            $messages = [
+                'name.required' => 'ПОЛЕ :attribute обов\'язкове для заповнення',
+                'email.max' => 'Максимально допустима кількість символів :max',
+            ];
+
+            $validator = Validator::make($request->all(), [
+                'name' => 'required',
+                // sometimes - якщо поле присутнє в об'єкті, який провіряється, якщо його відправили
+                'email' => 'required'
+            ], $messages);
+
+            // будуть оброблені поля, які передаються 1 аргументом, в тому випадку якщо функція callback повернула true
+            $validator->sometimes(['email','site'], 'required', function($input){
+//                dump($input);
+//                exit();
+                return strlen($input->name) >= 10;
+            });
+
+            // функція, код якої виконається зразу ж після створення валідатора
+            $validator->after(function ($validator){
+                $validator->errors()->add('name', 'Додаткове повідомлення');
+            });
+
+            if ($validator->fails()) {
+
+                $messages = $validator->errors();
+
+                // якщо для даного поля є повідомлення про помилки
+//                if ($messages->has('name')){
+//                    dump($messages->get('name'));
+//                }
+
+//                dump($messages->all());
+//                dump($messages->first());
+//                dump($messages->get('name'));
+//                dump($messages->all('<p> :message </p>'));
+
+                dump($validator->failed());
+
+                return redirect()->route('contact')->withErrors($validator)->withInput();
+
 //                $request->flash();
 //                return view('default.contact', ['title' => 'Contacts'])->withErrors($validator)->withInput($request->all());
-//            }
+            }
+
+            // $this->validate($request, $rules, $messages);
         }
         
         return view('default.contact', ['title' => 'Contacts']);
