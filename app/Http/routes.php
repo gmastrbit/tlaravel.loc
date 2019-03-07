@@ -21,6 +21,12 @@ Route::get('/article/{id}', ['as' => 'article', 'uses' => 'Admin\Core@getArticle
 
 //Route::match(['get', 'post'], '/contact/{name?}', ['as' => 'contact', 'uses' => 'Admin\ContactController@show']);
 
-Route::get('/contact', ['uses' => 'Admin\ContactController@show', 'as' => 'contact']);
+Route::get('/contact', ['middleware' => ['auth'], 'uses' => 'Admin\ContactController@show', 'as' => 'contact']);
 
 Route::post('/contact', ['uses' => 'Admin\ContactController@store']);
+
+Route::group(['middleware' => ['web']], function(){
+    Route::auth();
+
+    Route::get('/home', 'HomeController@index');
+});
