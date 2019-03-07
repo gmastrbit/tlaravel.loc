@@ -25,8 +25,21 @@ Route::get('/contact', ['middleware' => ['auth'], 'uses' => 'Admin\ContactContro
 
 Route::post('/contact', ['uses' => 'Admin\ContactController@store']);
 
-Route::group(['middleware' => ['web']], function(){
+// автоматично згенерований код
+Route::group(['middleware' => 'web'], function(){
     Route::auth();
 
-    Route::get('/home', 'HomeController@index');
+//    Route::get('/home', 'HomeController@index');
+});
+
+// самописаний код, 29 урок:
+
+// реєстрація стандартних маршрутів
+//Route::auth();
+
+// prefix - префікс admin
+// web підключаємо перед auth, тому що посередники передають управління по ланцюжку
+Route::group(['prefix' => 'admin', 'middleware' => ['web']], function (){
+    Route::get('/', ['uses' => 'Admin\AdminController@show', 'as' => 'admin_index']);
+    Route::get('/add/post', ['uses' => 'Admin\AdminPostController@create', 'as' => 'admin_add_post']);
 });

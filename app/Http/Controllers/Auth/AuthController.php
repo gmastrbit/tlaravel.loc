@@ -30,6 +30,9 @@ class AuthController extends Controller
      */
     protected $redirectTo = '/';
 
+    // налаштування поля для аутентифікації (спочатку по замовчуванню email, але можна перевизначити на login)
+    protected $username = 'login';
+
     /**
      * Create a new authentication controller instance.
      *
@@ -50,7 +53,8 @@ class AuthController extends Controller
     {
         return Validator::make($data, [
             'name' => 'required|max:255',
-            'email' => 'required|email|max:255|unique:users',
+            'login' => 'required|max:60|unique:users,login',
+            'email' => 'required|email|max:255',
             'password' => 'required|min:6|confirmed',
         ]);
     }
@@ -65,6 +69,7 @@ class AuthController extends Controller
     {
         return User::create([
             'name' => $data['name'],
+            'login' => $data['login'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
         ]);
