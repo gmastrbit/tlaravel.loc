@@ -27,9 +27,14 @@ Route::post('/contact', ['uses' => 'Admin\ContactController@store']);
 
 // автоматично згенерований код
 Route::group(['middleware' => 'web'], function(){
-    Route::auth();
+//    Route::auth();
 
 //    Route::get('/home', 'HomeController@index');
+});
+
+Route::group(['middleware' => 'web'], function(){
+    Route::get('/login', ['uses' => 'Auth\MyAuthController@showLogin']);
+    Route::post('/login', ['uses' => 'Auth\MyAuthController@authenticate']);
 });
 
 // самописаний код, 29 урок:
@@ -39,7 +44,9 @@ Route::group(['middleware' => 'web'], function(){
 
 // prefix - префікс admin
 // web підключаємо перед auth, тому що посередники передають управління по ланцюжку
-Route::group(['prefix' => 'admin', 'middleware' => ['web']], function (){
+
+// auth.basic - реалізація базової аутентифікації (як при httpwd)
+Route::group(['prefix' => 'admin', 'middleware' => ['web', 'auth.basic']], function (){
     Route::get('/', ['uses' => 'Admin\AdminController@show', 'as' => 'admin_index']);
     Route::get('/add/post', ['uses' => 'Admin\AdminPostController@create', 'as' => 'admin_add_post']);
 });
