@@ -23,7 +23,7 @@ class Article extends Model
     public $timestamps = TRUE;
 
     // масив полів, в які ми дозволяємо додавання інформації
-    protected $fillable = ['name', 'text'];
+    protected $fillable = ['name', 'text', 'img'];
 
     // список полів, які недоступні для запису
     protected $guarded = ['*'];
@@ -33,7 +33,8 @@ class Article extends Model
     // тип даних для кожного поля моделі
     protected $casts = [
         'name' => 'string',
-        'text' => 'array'
+        'text' => 'string',
+        'img' => 'string'
     ];
 
     // визначення зв'язку один до багатьох (тут багато записів)
@@ -45,13 +46,13 @@ class Article extends Model
     // метод читач
     public function getNameAttribute($value)
     {
-        return 'hello world - '.$value.' - test';
+        return $value;
     }
     
     // метод перетворювач
     public function setNameAttribute($value)
     {
-        $this->attributes['name'] = ' | '.$value.' | ';
+        $this->attributes['name'] = $value;
     }
 
 }

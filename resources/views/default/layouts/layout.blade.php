@@ -73,7 +73,9 @@
             @show
         </div>
 
-        @yield('content')
+        <div class="col-md-8">
+            @yield('content')
+        </div>
 
     </div>
 
