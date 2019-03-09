@@ -2,10 +2,12 @@
 
 namespace App\Providers;
 
+use App\Policies\ArticlePolicy;
 use Illuminate\Contracts\Auth\Access\Gate as GateContract;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
 use App\User;
+use App\Article;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -15,7 +17,7 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-        'App\Model' => 'App\Policies\ModelPolicy',
+        Article::class => ArticlePolicy::class
     ];
 
     /**
@@ -29,6 +31,7 @@ class AuthServiceProvider extends ServiceProvider
         // підвантажує зареєстровані політики безпеки
         $this->registerPolicies($gate);
 
+       /*
         // можна навіть описати контролер замість функції
         // $gate->define('add-article', ClassName@function);
         $gate->define('add-article', function(User $user){
@@ -53,5 +56,6 @@ class AuthServiceProvider extends ServiceProvider
 
             return false;
         });
+       */
     }
 }

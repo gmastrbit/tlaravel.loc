@@ -616,3 +616,45 @@
     Клас Gate використовується для описання прав користувача
 
     define() - визначає певне правило для конкретного користувача
+
+    Приклад встановлення правил:
+    $gate->define('update-article', function(User $user, $article){
+                foreach ($user->roles as $role){
+                    if($role->name == 'Admin'){
+                        if($user->id == $article->user_id){
+                            return true;
+                        }
+                    }
+                }
+
+        return false;
+    });
+
+    Приклад перевірки правил:
+    if(Gate::/*forUser(6)->*/allows('update-article', $article)){
+        $article->name = $data['name'];
+        $article->img = $data['img'];
+        $article->text = $data['text'];
+
+        $res = $user->articles()->save($article);
+
+        return redirect()->back()->with('message', 'Матеріал оновлений');
+    }
+
+Урок 32. Класи політик авторизації
+
+    Створення політик авторизації
+
+    Політика авторизації — це клас, в якому описується набір правил, прив'язаних до однієї певної сутності
+
+    Політика авторизації прив'язується до моделі проекта
+
+    php artisan make:policy ArticlePolicy
+
+    Після створення нової політики її потрібно зареєструвати в AuthServiceProvider ($policies)
+
+    before() спрацьовує перед перевіркою будь-якого правила політики авторизації
+
+    cannot() поверне істину, якщо користувачу заборонено використовувати конкретне правило
+
+    can() поверне істину, якщо користувачу можна використовувати конкретне правило
