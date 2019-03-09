@@ -15,6 +15,7 @@ use App\Http\Requests\ContactRequest;
 use App\Http\Controllers\Controller;
 
 use Validator;
+use Session;
 
 class ContactController extends Controller
 {
@@ -129,7 +130,51 @@ class ContactController extends Controller
         return view('default.contact', ['title' => 'Contacts']);
     }
 
-    public function show() {
+    public function show(Request $request) {
+
+        // надає API для роботи з сесіями
+//        $result = $request->session()->get('key', 'default');
+
+        // отримати всі дані сесії
+//        $result = $request->session()->all();
+
+//        if ($request->session()->has('key.first')){
+//            $result = $request->session()->all();
+
+        // додати значення в масив в сесії
+//           $request->session()->push('key.second', 'value2');
+
+        // додати значення в масив в сесії за допомогою фасада
+//           Session::push('key.second', 'value2');
+
+        // функція-хелпер
+//            session(['key2' => 'value2']);
+//            session(['key2' => 'value2']);
+//            dump(session('key5', 'default'));
+
+//            dump($result);
+//        }
+
+        /*$request->session()->put('key.first', 'value');
+        $result = $request->session()->all();
+
+        dump($result);*/
+
+        // видалити комірку
+//        Session::forget('key2');
+
+        // очистити сесію
+//        Session::flush();
+
+        // отримати дані по ключу і відразу їх видалити
+//        dump(Session::pull('key'));
+
+        // зберігає інформацію у сесію але лише на 1 запит
+//        Session::flash('message', 'value');
+
+        // продовжити зберігання даних ще на 1 запит
+//        Session::reflash();
+
         return view('default.contact', ['title' => 'Contacts']);
     }
 }
