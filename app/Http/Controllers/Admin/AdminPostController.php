@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Article;
+use Event;
+use App\Events\onAddArticleEvent;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -44,6 +46,13 @@ class AdminPostController extends Controller
             'img' => $data['img'],
             'text' => $data['text'],
         ]);
+
+        // викидання події
+//        Event::fire(new onAddArticleEvent($res,$user));
+
+//        event(new onAddArticleEvent($res,$user));
+
+        Event::fire('onAddArticleEvent', [$res, $user]);
 
         return redirect()->back()->with('message', 'Матеріал доданий');
     }

@@ -5,6 +5,8 @@ namespace App\Providers;
 use Illuminate\Contracts\Events\Dispatcher as DispatcherContract;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
+use Log;
+
 class EventServiceProvider extends ServiceProvider
 {
     /**
@@ -12,9 +14,11 @@ class EventServiceProvider extends ServiceProvider
      *
      * @var array
      */
+
+    // реєстрація класу події і обробника події
     protected $listen = [
-        'App\Events\SomeEvent' => [
-            'App\Listeners\EventListener',
+        'App\Events\onAddArticleEvent' => [
+            'App\Listeners\AddArticleListener',
         ],
     ];
 
@@ -28,6 +32,9 @@ class EventServiceProvider extends ServiceProvider
     {
         parent::boot($events);
 
-        //
+        // реєстрація обробника події
+        $events->listen('onAddArticleEvent', function ($article, $user){
+            Log::info('Article save:', [$user->name => $article->name]);
+        });
     }
 }

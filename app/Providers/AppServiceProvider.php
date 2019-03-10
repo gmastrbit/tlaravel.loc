@@ -6,6 +6,8 @@ use Illuminate\Support\ServiceProvider;
 use Blade;
 use Response;
 use DB;
+use App\Article;
+use Log;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -27,6 +29,11 @@ class AppServiceProvider extends ServiceProvider
 //            dump($query->sql);
 //            //dump($query->bindings);
 //        });
+
+        // подія
+        Article::created(function(Article $article){
+            Log::info('Article save:', [$article->user->name => $article->name]);
+        });
     }
 
     /**
