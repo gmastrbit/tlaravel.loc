@@ -17,6 +17,8 @@ use App\Http\Controllers\Controller;
 use Validator;
 use Session;
 
+use Lang;
+
 class ContactController extends Controller
 {
 //    protected $request;
@@ -175,6 +177,13 @@ class ContactController extends Controller
         // продовжити зберігання даних ще на 1 запит
 //        Session::reflash();
 
-        return view('default.contact', ['title' => 'Contacts']);
+        // поверне переведений текст для певної мовної константи
+//        $title_head = Lang::get('messages.hello', ['name' => 'Ben']);
+
+        if (Lang::has('messages.apples')) {
+            $title_head = Lang::choice('messages.apples', 5);
+        }
+
+        return view('default.contact', ['title' => 'Contacts', 'title_head' => $title_head]);
     }
 }

@@ -1,9 +1,9 @@
 @extends('default.layouts.layout')
 
 @section('content')
-<div class="col-md-8">
+<div class="col-md-12">
 <div class="class">
-    <h2>Contact us!</h2>
+    <h2>{{ $title_head }}</h2>
 </div>
 <p>
     Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus aliquid doloremque ducimus, ea fugit laboriosam laudantium natus nisi obcaecati omnis quidem ratione repellendus sequi sint voluptatum! Dicta neque non quae!
