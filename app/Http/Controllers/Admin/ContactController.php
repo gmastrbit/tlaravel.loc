@@ -24,6 +24,8 @@ use Lang;
 
 use App;
 
+use SaveStr;
+
 class ContactController extends Controller
 {
 //    protected $request;
@@ -34,7 +36,7 @@ class ContactController extends Controller
 //    }
     
     // впровадження залежностей
-    public function store(Request $request, SaveStr $saveStr, $id = false)
+    public function store(Request $request, /*SaveStr $saveStr,*/ $id = false)
     {
         // all() - для всіх
         // only() - для деяких
@@ -141,8 +143,10 @@ class ContactController extends Controller
         // доступ до комірок сервіс контейнера
 //        $var = App::make('App\Helpers\Contracts\SaveStr');
 
-        $saveStr->save($request, Auth::user());
+//        $saveStr->save($request, Auth::user());
 //        $var->save($request, Auth::user());
+
+        SaveStr::save($request, Auth::user());
 
         return redirect()->route('contact');
     }
@@ -194,6 +198,8 @@ class ContactController extends Controller
 
         // поверне переведений текст для певної мовної константи
 //        $title_head = Lang::get('messages.hello', ['name' => 'Ben']);
+
+//        dd(Lang::$app);
 
         if (Lang::has('messages.apples')) {
             $title_head = Lang::choice('messages.apples', 5);

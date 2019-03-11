@@ -38,10 +38,10 @@ class SaveStrServiceProvider extends ServiceProvider
 ////       dd($this->app['App\Helpers\Contracts\SaveStr']);
 //       dd($this->app->make('App\Helpers\Contracts\SaveStr'));
 
-//        $this->app->bind('App\Helpers\Contracts\SaveStr', function(){
-//
-//            return new SaveFile();
-//        });
+        $this->app->bind('savestr', function(){
+
+            return new SaveFile();
+        });
 
         $this->app->bind('App\Helpers\Contracts\SaveStr', 'App\Helpers\SaveFile');
     }
