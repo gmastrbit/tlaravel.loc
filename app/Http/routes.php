@@ -23,7 +23,7 @@ Route::get('/article/{id}', ['as' => 'article', 'uses' => 'Admin\Core@getArticle
 
 Route::get('/contact', ['middleware' => ['auth'], 'uses' => 'Admin\ContactController@show', 'as' => 'contact']);
 
-Route::post('/contact', ['uses' => 'Admin\ContactController@store']);
+Route::post('/contact', ['middleware' => ['web'], 'uses' => 'Admin\ContactController@store']);
 
 // автоматично згенерований код
 Route::group(['middleware' => 'web'], function(){
