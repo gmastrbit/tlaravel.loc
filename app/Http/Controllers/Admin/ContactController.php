@@ -20,7 +20,9 @@ use Session;
 
 use Lang;
 
-use App\Helpers\Contracts\SaveStr;
+//use App\Helpers\Contracts\SaveStr;
+
+use App;
 
 class ContactController extends Controller
 {
@@ -134,7 +136,13 @@ class ContactController extends Controller
 //
 //        return view('default.contact', ['title' => 'Contacts']);
 
+//        $var = new SomeClass();
+
+        // доступ до комірок сервіс контейнера
+//        $var = App::make('App\Helpers\Contracts\SaveStr');
+
         $saveStr->save($request, Auth::user());
+//        $var->save($request, Auth::user());
 
         return redirect()->route('contact');
     }
